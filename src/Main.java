@@ -1,30 +1,55 @@
+import java.util.Scanner;
+
 public class Main {
-    public static class Book{
-        String title = "Love Must Be Tough";
-        String author = "DR. JAMES DOBSON";
-        String type = "Gospel";
-        int year = 1936;
-        int ISBN = 1590523555;
+    public static void main(String[] args) {
+        Library library = new Library();
 
-        static class Title {
-            static void summary(String t, String a) {
-                System.out.println("Title: " + t + " by " + a);
-            }
-        }
+        System.out.print("Input Title: ");
+        Scanner scanTitle = new Scanner(System.in);
+        String title = scanTitle.nextLine();
 
-        static class Others{
-            static void stuff(int y, String typ, int IS){
-                System.out.println("Type of book: " + typ + "\nYear: " + y + "\nISBN: " + IS);
-            }
-        }
+        System.out.print("Input Author: ");
+        Scanner scanAuthor = new Scanner(System.in);
+        String author = scanAuthor.nextLine();
 
+        System.out.print("Input Book ID: ");
+        Scanner scanBookID = new Scanner(System.in);
+        int bookID = scanBookID.nextInt();
 
-    }
+        System.out.print("Input User Name: ");
+        Scanner scanUserName = new Scanner(System.in);
+        String userName = scanUserName.nextLine();
 
+        System.out.print("Input User ID: ");
+        Scanner scanUserID = new Scanner(System.in);
+        int userID = scanUserID.nextInt();
 
-    public static void main(String[] args){
-        Book obj = new Book();
-        Book.Title.summary(obj.title, obj.author);
-        Book.Others.stuff(obj.year, obj.type, obj.ISBN);
+        library.addBook(new Book(title, author, bookID));
+
+        library.addUser(new User(userName, userID));
+
+        // All books
+        System.out.println("All books in the library:");
+        library.listBooks();
+
+        // All users
+        System.out.println("\nAll users:");
+        library.listUsers();
+
+        // Borrowing books
+        System.out.println("\nBorrowing books:");
+        library.borrowBook(bookID, userID);
+
+        // Borrowed books
+        System.out.println("\nBorrowed books:");
+        library.listBorrowedBooks();
+
+        // Returning a book
+        System.out.println("\nReturning a book:");
+        library.returnBook(bookID, userID);
+
+        // Listing borrowed books after returning
+        System.out.println("\nBorrowed books after returning:");
+        library.listBorrowedBooks();
     }
 }
